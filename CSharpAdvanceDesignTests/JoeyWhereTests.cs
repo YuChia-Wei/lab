@@ -99,5 +99,18 @@ namespace CSharpAdvanceDesignTests
 
             return result;
         }
+
+        private List<Employee> JoeyWhereForEmployee(List<Employee> employees, Func<Employee, bool> func)
+        {
+            var result = new List<Employee>();
+
+            foreach (var product in employees)
+            {
+                if (func(product))
+                    result.Add(product);
+            }
+
+            return result;
+        }
     }
 }
