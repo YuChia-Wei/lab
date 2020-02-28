@@ -12,5 +12,15 @@ namespace CSharpAdvanceDesignTests
                 yield return selector(employee);
             }
         }
+
+        public static IEnumerable<TResult> JoeySelect<TSource,TResult>(this IEnumerable<TSource> sources, Func<TSource, int, TResult> joeySelectWithIndex)
+        {
+            var index = 0;
+            foreach (var source in sources)
+            {
+                yield return joeySelectWithIndex(source, index);
+                index++;
+            }
+        }
     }
 }

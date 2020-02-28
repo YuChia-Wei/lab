@@ -32,7 +32,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelectWithIndex(urls);
+            var actual = urls.JoeySelect((url, index) => $"{index + 1}. {url}:9191");
             var expected = new List<string>
             {
                 "1. http://tw.yahoo.com:9191",
@@ -99,17 +99,6 @@ namespace CSharpAdvanceDesignTests
             yield return "https://facebook.com";
             yield return "https://twitter.com";
             yield return "http://github.com";
-        }
-
-        private IEnumerable<string> JoeySelectWithIndex(IEnumerable<string> urls)
-        {
-            int index = 0;
-
-            foreach (var url in urls)
-            {
-                index++;
-                yield return $"{index}. {url}:9191";
-            }
         }
     }
 }
