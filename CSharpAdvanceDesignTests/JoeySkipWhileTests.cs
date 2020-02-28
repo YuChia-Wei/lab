@@ -49,12 +49,7 @@ namespace CSharpAdvanceDesignTests
 
                 needSkip = needSkip && predicate(current);
 
-                if (needSkip)
-                {
-                    continue;
-                }
-
-                yield return current;
+                if (!needSkip) yield return current;
             }
         }
     }
