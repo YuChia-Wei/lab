@@ -16,7 +16,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelectWithPort(urls);
+            var actual = JoeySelect(urls, s => $"{s}:9191");
             var expected = new List<string>
             {
                 "http://tw.yahoo.com:9191",
@@ -69,15 +69,6 @@ namespace CSharpAdvanceDesignTests
             {
                 yield return joeySelect(url);
             }
-        }
-
-        private IEnumerable<string> JoeySelectWithPort(IEnumerable<string> urls)
-        {
-            return JoeySelect(urls, s => $"{s}:9191");
-            //foreach (var url in urls)
-            //{
-            //    yield return url + ":9191";
-            //}
         }
     }
 }
