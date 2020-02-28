@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ExpectedObjects;
 using Lab.Entities;
@@ -16,7 +15,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelect(urls, s => $"{s}:9191");
+            var actual = urls.JoeySelect(s => $"{s}:9191");
             var expected = new List<string>
             {
                 "http://tw.yahoo.com:9191",
@@ -33,8 +32,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            Func<string, string> selector = url => url.Replace("http:", "https:");
-            var actual = JoeySelect(urls, selector);
+            var actual = urls.JoeySelect(url => url.Replace("http:", "https:"));
             var expected = new List<string>
             {
                 "https://tw.yahoo.com",
@@ -56,7 +54,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
 
-            var joeySelectForEmployee = JoeySelect(employees, e => $"{e.FirstName} {e.LastName}");
+            var joeySelectForEmployee = employees.JoeySelect(e => $"{e.FirstName} {e.LastName}");
 
             var expected = new[]
             {
@@ -84,14 +82,6 @@ namespace CSharpAdvanceDesignTests
             yield return "https://facebook.com";
             yield return "https://twitter.com";
             yield return "http://github.com";
-        }
-
-        private IEnumerable<TResult> JoeySelect<TSource, TResult>(IEnumerable<TSource> sources, Func<TSource, TResult> selector)
-        {
-            foreach (var employee in sources)
-            {
-                yield return selector(employee);
-            }
         }
     }
 }
