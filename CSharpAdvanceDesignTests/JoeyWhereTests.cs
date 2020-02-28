@@ -53,7 +53,8 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhereCostLessThan30(products);
+            var actual = JoeyWhere(products, product => product.Price > 200 &&
+                                                        product.Price < 500 && product.Cost < 30);
 
             var expected = new List<Product>
             {
@@ -71,22 +72,6 @@ namespace CSharpAdvanceDesignTests
             {
                 if (validFunc(product))
                     result.Add(product);
-            }
-
-            return result;
-        }
-
-        private List<Product> JoeyWhereCostLessThan30(List<Product> products)
-        {
-            var result = new List<Product>();
-
-            foreach (var product in JoeyWhere(products, product1 => product1.Price > 200 &&
-                                                                    product1.Price < 500))
-            {
-                if (product.Cost < 30)
-                {
-                    result.Add(product);
-                }
             }
 
             return result;
