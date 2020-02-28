@@ -75,8 +75,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "May", LastName = "Chen"},
             };
 
-            var actual = JoeyWhereForEmployee(
-                employees, e => e.FirstName.Length < 5);
+            var actual = JoeyWhere(employees, e => e.FirstName.Length < 5);
 
             var expected = new List<Employee>
             {
@@ -98,20 +97,6 @@ namespace CSharpAdvanceDesignTests
             }
 
             return result;
-        }
-
-        private List<Employee> JoeyWhereForEmployee(List<Employee> employees, Func<Employee, bool> func)
-        {
-            return JoeyWhere(employees, func);
-            //var result = new List<Employee>();
-
-            //foreach (var product in employees)
-            //{
-            //    if (func(product))
-            //        result.Add(product);
-            //}
-
-            //return result;
         }
     }
 }
