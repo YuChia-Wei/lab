@@ -50,8 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomWhereExtensions.cs" />
-    <Compile Include="CustomSelection.cs" />
+    <Compile Include="LinqExtensions.cs" />
     <Compile Include="JoeyAggregateTests.cs" />
     <Compile Include="JoeyAllTests.cs" />
     <Compile Include="JoeyAnyTests.cs" />
