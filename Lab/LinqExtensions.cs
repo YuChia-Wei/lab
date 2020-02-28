@@ -50,5 +50,24 @@ namespace CSharpAdvanceDesignTests
 
             return result;
         }
+
+        public static IEnumerable<TSource> JoeyTake<TSource>(this IEnumerable<TSource> employees, int count)
+        {
+            var enumerator = employees.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                if (index < count)
+                {
+                    yield return enumerator.Current;
+                }
+                else
+                {
+                    break;
+                }
+
+                index++;
+            }
+        }
     }
 }
