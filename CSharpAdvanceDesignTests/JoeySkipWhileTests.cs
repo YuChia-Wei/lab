@@ -1,19 +1,18 @@
-﻿using ExpectedObjects;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeySkipWhileTests
     {
         [Test]
-        public void skip_cards_until_separate_card()
+        public void skip_card_kind_is_normal()
         {
             var cards = new List<Card>
             {
@@ -26,7 +25,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhile(cards);
+            var actual = JoeySkipWhile(cards, current => current.Kind == CardKind.Normal);
 
             var expected = new List<Card>
             {
@@ -39,9 +38,26 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
         }
 
-        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
+        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
         {
-            throw new NotImplementedException();
+            var enumerator = cards.GetEnumerator();
+
+            //var needSkip = true;
+            var isStartTaking = false;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+
+                //needSkip = needSkip && predicate(current);
+
+                //if (!needSkip) yield return current;
+
+                if (!predicate(current)||isStartTaking)
+                {
+                    isStartTaking = true;
+                    yield return current;
+                }
+            }
         }
     }
 }
