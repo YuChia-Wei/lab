@@ -87,15 +87,17 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> selector)
         {
-            foreach (var url in urls)
-            {
-                yield return selector(url);
-            }
+            return JoeySelectForEmployee(urls, selector);
+
+            //foreach (var url in urls)
+            //{
+            //    yield return selector(url);
+            //}
         }
 
-        private IEnumerable<string> JoeySelectForEmployee(List<Employee> employees, Func<Employee, string> selector)
+        private IEnumerable<string> JoeySelectForEmployee<TSource>(IEnumerable<TSource> sources, Func<TSource, string> selector)
         {
-            foreach (var employee in employees)
+            foreach (var employee in sources)
             {
                 yield return selector(employee);
             }
