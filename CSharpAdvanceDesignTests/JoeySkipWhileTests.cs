@@ -12,7 +12,7 @@ namespace CSharpAdvanceDesignTests
     public class JoeySkipWhileTests
     {
         [Test]
-        public void skip_cards_until_separate_card()
+        public void skip_card_kind_is_normal()
         {
             var cards = new List<Card>
             {
