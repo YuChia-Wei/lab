@@ -85,19 +85,19 @@ namespace CSharpAdvanceDesignTests
             yield return "http://github.com";
         }
 
-        private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> joeySelect)
+        private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> selector)
         {
             foreach (var url in urls)
             {
-                yield return joeySelect(url);
+                yield return selector(url);
             }
         }
 
-        private IEnumerable<string> JoeySelectForEmployee(List<Employee> employees, Func<Employee, string> func)
+        private IEnumerable<string> JoeySelectForEmployee(List<Employee> employees, Func<Employee, string> selector)
         {
             foreach (var employee in employees)
             {
-                yield return func(employee);
+                yield return selector(employee);
             }
         }
     }
