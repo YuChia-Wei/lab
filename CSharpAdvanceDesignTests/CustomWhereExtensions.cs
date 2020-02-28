@@ -17,5 +17,20 @@ namespace CSharpAdvanceDesignTests
 
             return result;
         }
+
+        public static List<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> sources, Func<TSource, int, bool> prediGate)
+        {
+            var index = 0;
+            var result = new List<TSource>();
+            foreach (var item in sources)
+            {
+                if (prediGate(item, index))
+                    result.Add(item);
+
+                index++;
+            }
+
+            return result;
+        }
     }
 }
