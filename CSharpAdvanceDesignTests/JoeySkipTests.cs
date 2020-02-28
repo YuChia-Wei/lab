@@ -14,7 +14,7 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = GetEmployees();
 
-            var actual = JoeySkip(employees, 2);
+            var actual = employees.JoeySkip(2);
 
             var expected = new List<Employee>
             {
@@ -24,21 +24,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual.ToList());
-        }
-
-        private IEnumerable<Employee> JoeySkip(IEnumerable<Employee> employees, int count)
-        {
-            var enumerator = employees.GetEnumerator();
-            var index = 0;
-            while (enumerator.MoveNext())
-            {
-                if (index >= count)
-                {
-                    yield return enumerator.Current;
-                }
-
-                index++;
-            }
         }
 
         private static IEnumerable<Employee> GetEmployees()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lab.Entities;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -64,6 +65,21 @@ namespace CSharpAdvanceDesignTests
                 else
                 {
                     break;
+                }
+
+                index++;
+            }
+        }
+
+        public static IEnumerable<Employee> JoeySkip(this IEnumerable<Employee> employees, int count)
+        {
+            var enumerator = employees.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                if (index >= count)
+                {
+                    yield return enumerator.Current;
                 }
 
                 index++;
