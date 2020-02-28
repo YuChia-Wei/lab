@@ -1,8 +1,8 @@
-﻿using ExpectedObjects;
+﻿using System.Collections.Generic;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -22,12 +22,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Tom", LastName = "Li"},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual);
-        }
-
-        private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees)
-        {
-            throw new System.NotImplementedException();
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
         private static IEnumerable<Employee> GetEmployees()
@@ -40,6 +35,26 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Mike", LastName = "Chang"},
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
+        }
+
+        private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees)
+        {
+            var enumerator = employees.GetEnumerator();
+            var index = 0;
+            var count = 2;
+            while (enumerator.MoveNext())
+            {
+                if (index < count)
+                {
+                    yield return enumerator.Current;
+                }
+                else
+                {
+                    break;
+                }
+
+                index++;
+            }
         }
     }
 }
