@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class CustomWhereExtensions
+    public static class CustomWhereExtensions
     {
-        public static List<TSource> JoeyWhere<TSource>(List<TSource> sources, Func<TSource, bool> validFunc)
+        public static List<TSource> JoeyWhere<TSource>(this List<TSource> sources, Func<TSource, bool> validFunc)
         {
             var result = new List<TSource>();
 
