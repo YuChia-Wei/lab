@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using System;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = GetEmployees();
 
-            var actual = JoeySelect(employees);
+            var actual = JoeySkip(employees);
 
             var expected = new List<Employee>
             {
@@ -23,12 +24,12 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+            expected.ToExpectedObject().ShouldMatch(actual.ToList());
         }
 
-        private IEnumerable<Employee> JoeySelect(IEnumerable<Employee> employees)
+        private IEnumerable<Employee> JoeySkip(IEnumerable<Employee> employees)
         {
-            throw new System.NotImplementedException();
+            throw NotImplementedException();
         }
 
         private static IEnumerable<Employee> GetEmployees()
