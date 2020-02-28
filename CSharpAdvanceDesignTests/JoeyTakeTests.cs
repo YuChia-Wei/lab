@@ -60,25 +60,6 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<object> JoeyTake(string[] employees, int count)
-        {
-            var enumerator = employees.GetEnumerator();
-            var index = 0;
-            while (enumerator.MoveNext())
-            {
-                if (index < count)
-                {
-                    yield return enumerator.Current;
-                }
-                else
-                {
-                    break;
-                }
-
-                index++;
-            }
-        }
-
         private static IEnumerable<Employee> GetEmployees()
         {
             return new List<Employee>
@@ -91,7 +72,7 @@ namespace CSharpAdvanceDesignTests
             };
         }
 
-        private IEnumerable<Employee> JoeyTake(IEnumerable<Employee> employees, int count)
+        private IEnumerable<TSource> JoeyTake<TSource>(IEnumerable<TSource> employees, int count)
         {
             var enumerator = employees.GetEnumerator();
             var index = 0;
