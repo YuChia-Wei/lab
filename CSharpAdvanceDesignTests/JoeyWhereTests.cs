@@ -10,6 +10,15 @@ namespace CSharpAdvanceDesignTests
     public class JoeyWhereTests
     {
         [Test]
+        public void find_positive_number_the_first_one_and_skip_second_one_and_take_others()
+        {
+            var numbers = new List<int> { 1, 2, 3, 4, -5 };
+            var actual = JoeyWhereWithIndex(numbers);
+            var expected = new List<int> { 1, 3, 4 };
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        [Test]
         public void find_products_that_price_between_200_and_500()
         {
             var products = new List<Product>
@@ -83,6 +92,22 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        private List<int> JoeyWhereWithIndex(List<int> numbers)
+        {
+            var index = 0;
+            var result = new List<int>();
+            foreach (var number in numbers)
+            {
+                index++;
+                if (index == 2) continue;
+
+                if (number >= 0)
+                    result.Add(number);
+            }
+
+            return result;
         }
     }
 }
