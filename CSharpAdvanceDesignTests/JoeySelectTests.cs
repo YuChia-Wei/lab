@@ -67,14 +67,6 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(joeySelectForEmployee);
         }
 
-        private IEnumerable<string> JoeySelectForEmployee(List<Employee> employees, Func<Employee, string> func)
-        {
-            foreach (var employee in employees)
-            {
-                yield return func(employee);
-            }
-        }
-
         private static List<Employee> GetEmployees()
         {
             return new List<Employee>
@@ -98,6 +90,14 @@ namespace CSharpAdvanceDesignTests
             foreach (var url in urls)
             {
                 yield return joeySelect(url);
+            }
+        }
+
+        private IEnumerable<string> JoeySelectForEmployee(List<Employee> employees, Func<Employee, string> func)
+        {
+            foreach (var employee in employees)
+            {
+                yield return func(employee);
             }
         }
     }
