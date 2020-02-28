@@ -1,10 +1,9 @@
-﻿using ExpectedObjects;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -40,7 +39,22 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
         {
-            throw new NotImplementedException();
+            var enumerator = cards.GetEnumerator();
+
+            var needSkip = true;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+
+                needSkip = needSkip ? current.Kind == CardKind.Normal : false;
+
+                if (needSkip)
+                {
+                    continue;
+                }
+
+                yield return current;
+            }
         }
     }
 }
