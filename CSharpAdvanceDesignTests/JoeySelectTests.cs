@@ -1,9 +1,9 @@
-﻿using ExpectedObjects;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -29,7 +29,10 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<string> JoeySelect(IEnumerable<string> urls)
         {
-            throw new System.NotImplementedException();
+            foreach (var url in urls)
+            {
+                yield return url.Replace("http:", "https:");
+            }
         }
 
         private static IEnumerable<string> GetUrls()
