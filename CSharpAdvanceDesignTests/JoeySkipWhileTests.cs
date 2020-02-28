@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ExpectedObjects;
 using Lab.Entities;
@@ -24,7 +25,7 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhile(cards);
+            var actual = JoeySkipWhile(cards, current => current.Kind == CardKind.Normal);
 
             var expected = new List<Card>
             {
@@ -37,7 +38,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
         }
 
-        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
+        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> predicate)
         {
             var enumerator = cards.GetEnumerator();
 
@@ -46,7 +47,7 @@ namespace CSharpAdvanceDesignTests
             {
                 var current = enumerator.Current;
 
-                needSkip = needSkip ? current.Kind == CardKind.Normal : false;
+                needSkip = needSkip && predicate(current);
 
                 if (needSkip)
                 {
