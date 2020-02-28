@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ExpectedObjects;
 using Lab.Entities;
@@ -32,7 +33,7 @@ namespace CSharpAdvanceDesignTests
         {
             var urls = GetUrls();
 
-            var actual = JoeySelect(urls);
+            var actual = JoeySelect(urls, url => url.Replace("http:", "https:"));
             var expected = new List<string>
             {
                 "https://tw.yahoo.com",
@@ -43,6 +44,7 @@ namespace CSharpAdvanceDesignTests
 
             expected.ToExpectedObject().ShouldEqual(actual.ToList());
         }
+
         private static List<Employee> GetEmployees()
         {
             return new List<Employee>
@@ -61,20 +63,21 @@ namespace CSharpAdvanceDesignTests
             yield return "http://github.com";
         }
 
-        private IEnumerable<string> JoeySelect(IEnumerable<string> urls)
+        private IEnumerable<string> JoeySelect(IEnumerable<string> urls, Func<string, string> joeySelect)
         {
             foreach (var url in urls)
             {
-                yield return url.Replace("http:", "https:");
+                yield return joeySelect(url);
             }
         }
 
         private IEnumerable<string> JoeySelectWithPort(IEnumerable<string> urls)
         {
-            foreach (var url in urls)
-            {
-                yield return url + ":9191";
-            }
+            return JoeySelect(urls, s => $"{s}:9191");
+            //foreach (var url in urls)
+            //{
+            //    yield return url + ":9191";
+            //}
         }
     }
 }
