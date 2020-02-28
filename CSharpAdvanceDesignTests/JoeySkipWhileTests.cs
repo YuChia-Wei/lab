@@ -42,14 +42,21 @@ namespace CSharpAdvanceDesignTests
         {
             var enumerator = cards.GetEnumerator();
 
-            var needSkip = true;
+            //var needSkip = true;
+            var isStartTaking = false;
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
 
-                needSkip = needSkip && predicate(current);
+                //needSkip = needSkip && predicate(current);
 
-                if (!needSkip) yield return current;
+                //if (!needSkip) yield return current;
+
+                if (!predicate(current)||isStartTaking)
+                {
+                    isStartTaking = true;
+                    yield return current;
+                }
             }
         }
     }
