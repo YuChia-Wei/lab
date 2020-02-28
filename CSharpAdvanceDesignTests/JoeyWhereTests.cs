@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
@@ -25,8 +24,8 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhere(products, product => product.Price > 200 &&
-                                                        product.Price < 500);
+            var actual = CustomWhereExtensions.JoeyWhere(products, product => product.Price > 200 &&
+                                                                              product.Price < 500);
 
             var expected = new List<Product>
             {
@@ -53,8 +52,8 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhere(products, product => product.Price > 200 &&
-                                                        product.Price < 500 && product.Cost < 30);
+            var actual = CustomWhereExtensions.JoeyWhere(products, product => product.Price > 200 &&
+                                                                              product.Price < 500 && product.Cost < 30);
 
             var expected = new List<Product>
             {
@@ -75,7 +74,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "May", LastName = "Chen"},
             };
 
-            var actual = JoeyWhere(employees, e => e.FirstName.Length < 5);
+            var actual = CustomWhereExtensions.JoeyWhere(employees, e => e.FirstName.Length < 5);
 
             var expected = new List<Employee>
             {
@@ -84,19 +83,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private List<TSource> JoeyWhere<TSource>(List<TSource> sources, Func<TSource, bool> validFunc)
-        {
-            var result = new List<TSource>();
-
-            foreach (var item in sources)
-            {
-                if (validFunc(item))
-                    result.Add(item);
-            }
-
-            return result;
         }
     }
 }
