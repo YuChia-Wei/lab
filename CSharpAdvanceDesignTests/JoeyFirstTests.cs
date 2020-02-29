@@ -45,24 +45,24 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
-            var employee = JoeyFirstWithCondition(employees);
+            var employee = JoeyFirstWithCondition(employees, current => current.LastName.Equals("Chen"));
             new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
         }
 
-        private Employee JoeyFirstWithCondition(IEnumerable<Employee> employees)
+        private TSource JoeyFirstWithCondition<TSource>(IEnumerable<TSource> sources, Func<TSource, bool> predicate)
         {
-            var enumerator = employees.GetEnumerator();
+            var enumerator = sources.GetEnumerator();
 
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                if (current.LastName.Equals("Chen"))
+                if (predicate(current))
                 {
                     return current;
                 }
             }
 
-            throw new InvalidOperationException($"{nameof(employees)} not found.");
+            throw new InvalidOperationException($"{nameof(sources)} is Empty.");
         }
     }
 }
