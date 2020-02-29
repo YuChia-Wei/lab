@@ -62,9 +62,9 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            Func<Employee, string> secondKeySelector = employee1 => employee1.FirstName;
-            IComparer<string> secondKeyComparer = Comparer<string>.Default;
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer(secondKeySelector, secondKeyComparer));
+            var actual = JoeyOrderByLastNameAndFirstName(employees,
+                new CombineKeyComparer(employee => employee.LastName, Comparer<string>.Default),
+                new CombineKeyComparer(employee1 => employee1.FirstName, Comparer<string>.Default));
 
             var expected = new[]
             {
@@ -92,7 +92,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var employee = elements[i];
                     var firstCompareResult = combineKeyComparer.Compare(employee, minElement);
-                    var secondCompareResult = secondCombineKeyComparer.FirstKeyComparer.Compare(secondCombineKeyComparer.FirstKeySelector(employee), secondCombineKeyComparer.FirstKeySelector(minElement));
+                    var secondCompareResult = SecondCompareResult(secondCombineKeyComparer, employee, minElement);
 
                     if (firstCompareResult < 0)
                     {
@@ -112,6 +112,11 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
+        }
+
+        private static int SecondCompareResult(CombineKeyComparer secondCombineKeyComparer, Employee employee, Employee minElement)
+        {
+            return secondCombineKeyComparer.FirstKeyComparer.Compare(secondCombineKeyComparer.FirstKeySelector(employee), secondCombineKeyComparer.FirstKeySelector(minElement));
         }
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
