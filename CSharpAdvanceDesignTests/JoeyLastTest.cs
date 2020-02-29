@@ -37,6 +37,28 @@ namespace CSharpAdvanceDesignTests
             Assert.Throws<InvalidOperationException>(action);
         }
 
+        [Test]
+        public void get_last_chen()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"},
+                new Employee {FirstName = "Cash", LastName = "Li"},
+            };
+
+            var employee = JoeyLastWithCondition(employees);
+
+            new Employee { FirstName = "David", LastName = "Chen" }
+                .ToExpectedObject().ShouldMatch(employee);
+        }
+
+        private Employee JoeyLastWithCondition(IEnumerable<Employee> employees)
+        {
+            return JoeyLast(employees.JoeyWhere(e => e.LastName.Equals("Chen")));
+        }
+
         private Employee JoeyLast(IEnumerable<Employee> employees)
         {
             var enumerator = employees.GetEnumerator();
