@@ -23,9 +23,9 @@ namespace CSharpAdvanceDesignTests
             return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
         }
 
-        public static int SecondCompareResult(CombineKeyComparer secondCombineKeyComparer, Employee employee, Employee minElement)
+        public int SecondCompareResult(Employee employee, Employee minElement)
         {
-            return secondCombineKeyComparer.FirstKeyComparer.Compare(secondCombineKeyComparer.FirstKeySelector(employee), secondCombineKeyComparer.FirstKeySelector(minElement));
+            return FirstKeyComparer.Compare(FirstKeySelector(employee), FirstKeySelector(minElement));
         }
     }
 
@@ -97,7 +97,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var employee = elements[i];
                     var firstCompareResult = combineKeyComparer.Compare(employee, minElement);
-                    var secondCompareResult = CombineKeyComparer.SecondCompareResult(secondCombineKeyComparer, employee, minElement);
+                    var secondCompareResult = secondCombineKeyComparer.SecondCompareResult(employee, minElement);
 
                     if (firstCompareResult < 0)
                     {
