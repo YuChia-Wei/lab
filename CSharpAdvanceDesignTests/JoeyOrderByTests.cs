@@ -22,12 +22,6 @@ namespace CSharpAdvanceDesignTests
         {
             return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
         }
-
-        public int SecondCompareResult(Employee x, Employee y)
-        {
-            return Compare(x, y);
-            //return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
-        }
     }
 
     [TestFixture]
@@ -98,7 +92,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var employee = elements[i];
                     var firstCompareResult = combineKeyComparer.Compare(employee, minElement);
-                    var secondCompareResult = secondCombineKeyComparer.SecondCompareResult(employee, minElement);
+                    var secondCompareResult = secondCombineKeyComparer.Compare(employee, minElement);
 
                     if (firstCompareResult < 0)
                     {
