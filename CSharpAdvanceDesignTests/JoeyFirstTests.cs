@@ -21,7 +21,7 @@ namespace CSharpAdvanceDesignTests
 
             var girl = girls.JoeyFirst();
             var expected = new Girl { Age = 60 };
-            
+
             expected.ToExpectedObject().ShouldEqual(girl);
         }
 
@@ -34,6 +34,35 @@ namespace CSharpAdvanceDesignTests
 
             TestDelegate action = () => girls.JoeyFirst();
             Assert.Throws<InvalidOperationException>(action);
+        }
+
+        [Test]
+        public void get_first_chen()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"}
+            };
+            var employee = JoeyFirstWithCondition(employees);
+            new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
+        }
+
+        private Employee JoeyFirstWithCondition(IEnumerable<Employee> employees)
+        {
+            var enumerator = employees.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (current.LastName.Equals("Chen"))
+                {
+                    return current;
+                }
+            }
+
+            throw new InvalidOperationException($"{nameof(employees)} not found.");
         }
     }
 }
