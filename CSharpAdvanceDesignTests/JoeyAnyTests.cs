@@ -56,7 +56,7 @@ namespace CSharpAdvanceDesignTests
             return false;
         }
 
-        private bool JoeyAny(IEnumerable<Employee> employees)
+        private bool JoeyAny<TSource>(IEnumerable<TSource> employees)
         {
             return employees.GetEnumerator().MoveNext();
         }
