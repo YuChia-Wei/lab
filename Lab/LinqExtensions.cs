@@ -24,7 +24,7 @@ namespace CSharpAdvanceDesignTests
             }
         }
 
-        public static List<TSource> JoeyWhere<TSource>(this List<TSource> sources, Func<TSource, bool> validFunc)
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this List<TSource> sources, Func<TSource, bool> validFunc)
         {
             var result = new List<TSource>();
 
@@ -37,7 +37,7 @@ namespace CSharpAdvanceDesignTests
             return result;
         }
 
-        public static List<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> sources, Func<TSource, int, bool> prediGate)
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> sources, Func<TSource, int, bool> prediGate)
         {
             var index = 0;
             var result = new List<TSource>();
