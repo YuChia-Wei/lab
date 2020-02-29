@@ -41,13 +41,29 @@ namespace CSharpAdvanceDesignTests
         {
             var enumerator = employees.GetEnumerator();
 
-            Employee current = null;
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException($"{nameof(employees)} is Empty.");
+            }
+
+            var current = enumerator.Current;
+
             while (enumerator.MoveNext())
             {
                 current = enumerator.Current;
             }
 
-            return current ?? throw new InvalidOperationException($"{nameof(employees)} is Empty.");
+            return current;
+
+            //這種方法當出現型別內容就是 null 的時候，會出現問題
+            //因為我們現在就是要取得 "最後" 一個
+            //Employee current = null;
+            //while (enumerator.MoveNext())
+            //{
+            //    current = enumerator.Current;
+            //}
+
+            //return current ?? throw new InvalidOperationException($"{nameof(employees)} is Empty.");
         }
     }
 }
