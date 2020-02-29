@@ -19,7 +19,7 @@ namespace CSharpAdvanceDesignTests
                 new Girl() {Age = 30},
             };
 
-            var girl = JoeyFirst(girls);
+            var girl = girls.JoeyFirst();
             var expected = new Girl { Age = 60 };
 
             expected.ToExpectedObject().ShouldEqual(girl);
@@ -32,21 +32,8 @@ namespace CSharpAdvanceDesignTests
             {
             };
 
-            TestDelegate action = () => JoeyFirst(girls);
+            TestDelegate action = () => girls.JoeyFirst();
             Assert.Throws<InvalidOperationException>(action);
-        }
-
-        private Girl JoeyFirst(IEnumerable<Girl> girls)
-        {
-            var enumerator = girls.GetEnumerator();
-
-            if (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                return current;
-            }
-
-            throw new InvalidOperationException();
         }
     }
 }

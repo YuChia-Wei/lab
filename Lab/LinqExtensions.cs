@@ -121,5 +121,18 @@ namespace CSharpAdvanceDesignTests
 
             return true;
         }
+
+        public static TSource JoeyFirst<TSource>(this IEnumerable<TSource> girls)
+        {
+            var enumerator = girls.GetEnumerator();
+
+            if (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                return current;
+            }
+
+            throw new InvalidOperationException();
+        }
     }
 }
