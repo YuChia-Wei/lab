@@ -45,7 +45,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
                 new Employee {FirstName = "David", LastName = "Chen"}
             };
-            var employee = employees.JoeyFirstWithCondition(current => current.LastName.Equals("Chen"));
+            var employee = employees.JoeyFirst(current => current.LastName.Equals("Chen"));
             new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
         }
     }
