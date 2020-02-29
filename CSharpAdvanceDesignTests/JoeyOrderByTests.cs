@@ -9,18 +9,18 @@ namespace CSharpAdvanceDesignTests
 {
     public class CombineKeyComparer : IComparer<Employee>
     {
-        public CombineKeyComparer(Func<Employee, string> firstKeySelector, IComparer<string> firstKeyComparer)
+        public CombineKeyComparer(Func<Employee, string> keySelector, IComparer<string> keyComparer)
         {
-            FirstKeySelector = firstKeySelector;
-            FirstKeyComparer = firstKeyComparer;
+            KeySelector = keySelector;
+            KeyComparer = keyComparer;
         }
 
-        public Func<Employee, string> FirstKeySelector { get; set; }
-        public IComparer<string> FirstKeyComparer { get; set; }
+        private Func<Employee, string> KeySelector { get; set; }
+        private IComparer<string> KeyComparer { get; set; }
 
         public int Compare(Employee x, Employee y)
         {
-            return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
+            return KeyComparer.Compare(KeySelector(x), KeySelector(y));
         }
     }
 
@@ -79,7 +79,7 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
             IEnumerable<Employee> employees,
-            IComparer<Employee> combineKeyComparer,
+            IComparer<Employee> firstCombineKeyComparer,
             IComparer<Employee> secondCombineKeyComparer)
         {
             //Selection sort
@@ -91,7 +91,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = combineKeyComparer.Compare(employee, minElement);
+                    var firstCompareResult = firstCombineKeyComparer.Compare(employee, minElement);
                     var secondCompareResult = secondCombineKeyComparer.Compare(employee, minElement);
 
                     if (firstCompareResult < 0)
