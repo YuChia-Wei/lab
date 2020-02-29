@@ -24,7 +24,7 @@ namespace CSharpAdvanceDesignTests
             }
         }
 
-        public static IEnumerable<TSource> JoeyWhere<TSource>(this List<TSource> sources, Func<TSource, bool> validFunc)
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> sources, Func<TSource, bool> validFunc)
         {
             var result = new List<TSource>();
 
