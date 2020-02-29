@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
-    [Ignore("not yet")]
     [TestFixture]
     public class JoeyAllTests
     {
