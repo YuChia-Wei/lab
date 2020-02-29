@@ -75,6 +75,8 @@ namespace CSharpAdvanceDesignTests
                 {
                     var employee = elements[i];
                     var firstCompareResult = firstKeyComparer.Compare(firstKeySelector(employee), firstKeySelector(minElement));
+                    var secondCompareResult = secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement));
+
                     if (firstCompareResult < 0)
                     {
                         minElement = employee;
@@ -82,7 +84,7 @@ namespace CSharpAdvanceDesignTests
                     }
                     else if (firstCompareResult == 0)
                     {
-                        if (secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement)) < 0)
+                        if (secondCompareResult < 0)
                         {
                             minElement = employee;
                             index = i;
