@@ -21,7 +21,7 @@ namespace CSharpAdvanceDesignTests
 
             var girl = girls.JoeyFirst();
             var expected = new Girl { Age = 60 };
-
+            
             expected.ToExpectedObject().ShouldEqual(girl);
         }
 

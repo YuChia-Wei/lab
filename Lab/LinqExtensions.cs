@@ -122,17 +122,13 @@ namespace CSharpAdvanceDesignTests
             return true;
         }
 
-        public static TSource JoeyFirst<TSource>(this IEnumerable<TSource> girls)
+        public static TSource JoeyFirst<TSource>(this IEnumerable<TSource> sources)
         {
-            var enumerator = girls.GetEnumerator();
+            var enumerator = sources.GetEnumerator();
 
-            if (enumerator.MoveNext())
-            {
-                var current = enumerator.Current;
-                return current;
-            }
-
-            throw new InvalidOperationException();
+            return enumerator.MoveNext()
+                ? enumerator.Current
+                : throw new InvalidOperationException($"{nameof(sources)} is Empty.");
         }
     }
 }
