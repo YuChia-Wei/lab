@@ -1,7 +1,8 @@
-﻿using ExpectedObjects;
+﻿using System;
+using System.Collections.Generic;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -13,20 +14,39 @@ namespace CSharpAdvanceDesignTests
         {
             var girls = new[]
             {
-                new Girl(){Age = 10},
-                new Girl(){Age = 20},
-                new Girl(){Age = 30},
+                new Girl() {Age = 60},
+                new Girl() {Age = 20},
+                new Girl() {Age = 30},
             };
 
             var girl = JoeyFirst(girls);
-            var expected = new Girl { Age = 10 };
+            var expected = new Girl { Age = 60 };
 
             expected.ToExpectedObject().ShouldEqual(girl);
         }
 
+        [Test]
+        public void get_first_girl_when_no_girls()
+        {
+            var girls = new Girl[]
+            {
+            };
+
+            TestDelegate action = () => JoeyFirst(girls);
+            Assert.Throws<InvalidOperationException>(action);
+        }
+
         private Girl JoeyFirst(IEnumerable<Girl> girls)
         {
-            throw new System.NotImplementedException();
+            var enumerator = girls.GetEnumerator();
+
+            if (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                return current;
+            }
+
+            throw new InvalidOperationException();
         }
     }
 }
