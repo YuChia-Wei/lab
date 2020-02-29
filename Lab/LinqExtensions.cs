@@ -130,5 +130,21 @@ namespace CSharpAdvanceDesignTests
                 ? enumerator.Current
                 : throw new InvalidOperationException($"{nameof(sources)} is Empty.");
         }
+
+        public static TSource JoeyFirstWithCondition<TSource>(this IEnumerable<TSource> sources, Func<TSource, bool> predicate)
+        {
+            var enumerator = sources.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    return current;
+                }
+            }
+
+            throw new InvalidOperationException($"{nameof(sources)} is Empty.");
+        }
     }
 }
