@@ -48,15 +48,15 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLastWithCondition(employees);
+            var employee = JoeyLastWithCondition(employees, e => e.LastName.Equals("Chen"));
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
-        private Employee JoeyLastWithCondition(IEnumerable<Employee> employees)
+        private Employee JoeyLastWithCondition(IEnumerable<Employee> employees, Func<Employee, bool> predicate)
         {
-            return JoeyLast(employees.JoeyWhere(e => e.LastName.Equals("Chen")));
+            return JoeyLast(employees.JoeyWhere(predicate));
         }
 
         private Employee JoeyLast(IEnumerable<Employee> employees)
