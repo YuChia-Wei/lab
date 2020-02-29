@@ -48,13 +48,13 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = JoeyLastWithCondition(employees, e => e.LastName.Equals("Chen"));
+            var employee = JoeyLast(employees, e => e.LastName.Equals("Chen"));
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
-        private TSource JoeyLastWithCondition<TSource>(IEnumerable<TSource> employees, Func<TSource, bool> predicate)
+        private TSource JoeyLast<TSource>(IEnumerable<TSource> employees, Func<TSource, bool> predicate)
         {
             return JoeyLast(employees.JoeyWhere(predicate));
         }
