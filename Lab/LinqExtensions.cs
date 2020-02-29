@@ -85,5 +85,25 @@ namespace CSharpAdvanceDesignTests
                 index++;
             }
         }
+
+        public static bool JoeyAny<TSource>(this IEnumerable<TSource> numbers, Func<TSource, bool> predicate)
+        {
+            var enumerator = numbers.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool JoeyAny<TSource>(this IEnumerable<TSource> employees)
+        {
+            return employees.GetEnumerator().MoveNext();
+        }
     }
 }
