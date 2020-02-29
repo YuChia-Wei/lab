@@ -1,12 +1,12 @@
-﻿using ExpectedObjects;
+﻿using System;
+using System.Collections.Generic;
+using ExpectedObjects;
 using Lab.Entities;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeyFirstTests
     {
         [Test]
@@ -14,20 +14,39 @@ namespace CSharpAdvanceDesignTests
         {
             var girls = new[]
             {
-                new Girl(){Age = 10},
-                new Girl(){Age = 20},
-                new Girl(){Age = 30},
+                new Girl() {Age = 60},
+                new Girl() {Age = 20},
+                new Girl() {Age = 30},
             };
 
-            var girl = JoeyFirst(girls);
-            var expected = new Girl { Age = 10 };
+            var girl = girls.JoeyFirst();
+            var expected = new Girl { Age = 60 };
 
             expected.ToExpectedObject().ShouldEqual(girl);
         }
 
-        private Girl JoeyFirst(IEnumerable<Girl> girls)
+        [Test]
+        public void get_first_girl_when_no_girls()
         {
-            throw new System.NotImplementedException();
+            var girls = new Girl[]
+            {
+            };
+
+            TestDelegate action = () => girls.JoeyFirst();
+            Assert.Throws<InvalidOperationException>(action);
+        }
+
+        [Test]
+        public void get_first_chen()
+        {
+            var employees = new List<Employee>
+            {
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "David", LastName = "Chen"}
+            };
+            var employee = employees.JoeyFirst(current => current.LastName.Equals("Chen"));
+            new Employee() { FirstName = "Joey", LastName = "Chen" }.ToExpectedObject().ShouldMatch(employee);
         }
     }
 }

@@ -121,5 +121,30 @@ namespace CSharpAdvanceDesignTests
 
             return true;
         }
+
+        public static TSource JoeyFirst<TSource>(this IEnumerable<TSource> sources)
+        {
+            var enumerator = sources.GetEnumerator();
+
+            return enumerator.MoveNext()
+                ? enumerator.Current
+                : throw new InvalidOperationException($"{nameof(sources)} is Empty.");
+        }
+
+        public static TSource JoeyFirst<TSource>(this IEnumerable<TSource> sources, Func<TSource, bool> predicate)
+        {
+            var enumerator = sources.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (predicate(current))
+                {
+                    return current;
+                }
+            }
+
+            throw new InvalidOperationException($"{nameof(sources)} is Empty.");
+        }
     }
 }
