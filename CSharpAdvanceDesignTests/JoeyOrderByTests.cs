@@ -45,7 +45,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, employee => employee.LastName);
+            var actual = JoeyOrderByLastNameAndFirstName(employees, employee => employee.LastName, Comparer<string>.Default);
 
             var expected = new[]
             {
@@ -58,10 +58,12 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(IEnumerable<Employee> employees, Func<Employee, string> firstSelector)
+        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+            IEnumerable<Employee> employees,
+            Func<Employee, string> firstSelector,
+            IComparer<string> stringComparer)
         {
             //Selection sort
-            var stringComparer = Comparer<string>.Default;
             var elements = employees.ToList();
             while (elements.Any())
             {
