@@ -15,8 +15,8 @@ namespace CSharpAdvanceDesignTests
             FirstKeyComparer = firstKeyComparer;
         }
 
-        private Func<Employee, string> FirstKeySelector { get; set; }
-        private IComparer<string> FirstKeyComparer { get; set; }
+        public Func<Employee, string> FirstKeySelector { get; set; }
+        public IComparer<string> FirstKeyComparer { get; set; }
 
         public int Compare(Employee x, Employee y)
         {
