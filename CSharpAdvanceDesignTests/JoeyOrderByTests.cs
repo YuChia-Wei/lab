@@ -18,9 +18,9 @@ namespace CSharpAdvanceDesignTests
         public Func<Employee, string> FirstKeySelector { get; private set; }
         public IComparer<string> FirstKeyComparer { get; private set; }
 
-        public int FirstCompareResult(Employee employee, Employee minElement)
+        public int Compare(Employee x, Employee y)
         {
-            return FirstKeyComparer.Compare(FirstKeySelector(employee), FirstKeySelector(minElement));
+            return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
         }
     }
 
@@ -90,7 +90,7 @@ namespace CSharpAdvanceDesignTests
                 for (int i = 1; i < elements.Count; i++)
                 {
                     var employee = elements[i];
-                    var firstCompareResult = combineKeyComparer.FirstCompareResult(employee, minElement);
+                    var firstCompareResult = combineKeyComparer.Compare(employee, minElement);
                     var secondCompareResult = secondKeyComparer.Compare(secondKeySelector(employee), secondKeySelector(minElement));
 
                     if (firstCompareResult < 0)
