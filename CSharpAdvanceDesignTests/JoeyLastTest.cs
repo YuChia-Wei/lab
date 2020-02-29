@@ -54,18 +54,18 @@ namespace CSharpAdvanceDesignTests
                 .ToExpectedObject().ShouldMatch(employee);
         }
 
-        private Employee JoeyLastWithCondition(IEnumerable<Employee> employees, Func<Employee, bool> predicate)
+        private TSource JoeyLastWithCondition<TSource>(IEnumerable<TSource> employees, Func<TSource, bool> predicate)
         {
             return JoeyLast(employees.JoeyWhere(predicate));
         }
 
-        private Employee JoeyLast(IEnumerable<Employee> employees)
+        private TSource JoeyLast<TSource>(IEnumerable<TSource> sources)
         {
-            var enumerator = employees.GetEnumerator();
+            var enumerator = sources.GetEnumerator();
 
             if (!enumerator.MoveNext())
             {
-                throw new InvalidOperationException($"{nameof(employees)} is Empty.");
+                throw new InvalidOperationException($"{nameof(sources)} is Empty.");
             }
 
             var current = enumerator.Current;
@@ -85,7 +85,7 @@ namespace CSharpAdvanceDesignTests
             //    current = enumerator.Current;
             //}
 
-            //return current ?? throw new InvalidOperationException($"{nameof(employees)} is Empty.");
+            //return current ?? throw new InvalidOperationException($"{nameof(sources)} is Empty.");
         }
     }
 }
