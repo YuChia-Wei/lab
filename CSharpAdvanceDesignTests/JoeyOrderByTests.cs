@@ -22,6 +22,11 @@ namespace CSharpAdvanceDesignTests
         {
             return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
         }
+
+        public static int SecondCompareResult(CombineKeyComparer secondCombineKeyComparer, Employee employee, Employee minElement)
+        {
+            return secondCombineKeyComparer.FirstKeyComparer.Compare(secondCombineKeyComparer.FirstKeySelector(employee), secondCombineKeyComparer.FirstKeySelector(minElement));
+        }
     }
 
     [TestFixture]
@@ -92,7 +97,7 @@ namespace CSharpAdvanceDesignTests
                 {
                     var employee = elements[i];
                     var firstCompareResult = combineKeyComparer.Compare(employee, minElement);
-                    var secondCompareResult = SecondCompareResult(secondCombineKeyComparer, employee, minElement);
+                    var secondCompareResult = CombineKeyComparer.SecondCompareResult(secondCombineKeyComparer, employee, minElement);
 
                     if (firstCompareResult < 0)
                     {
@@ -112,11 +117,6 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
-        }
-
-        private static int SecondCompareResult(CombineKeyComparer secondCombineKeyComparer, Employee employee, Employee minElement)
-        {
-            return secondCombineKeyComparer.FirstKeyComparer.Compare(secondCombineKeyComparer.FirstKeySelector(employee), secondCombineKeyComparer.FirstKeySelector(minElement));
         }
 
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
