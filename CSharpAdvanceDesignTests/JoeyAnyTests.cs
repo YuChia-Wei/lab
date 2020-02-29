@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lab.Entities;
 using NUnit.Framework;
 
@@ -36,16 +37,17 @@ namespace CSharpAdvanceDesignTests
         public void any_member_greater_than_91()
         {
             var numbers = new[] { 87, 88, 91, 93, 0 };
-            var actual = JoeyAnyWithCondition(numbers);
+            var actual = JoeyAnyWithCondition(numbers, current => current > 91);
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyAnyWithCondition(IEnumerable<int> numbers)
+        private bool JoeyAnyWithCondition(IEnumerable<int> numbers, Func<int, bool> predicate)
         {
             var enumerator = numbers.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                if (enumerator.Current > 91)
+                var current = enumerator.Current;
+                if (predicate(current))
                 {
                     return true;
                 }
