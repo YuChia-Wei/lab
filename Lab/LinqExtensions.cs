@@ -24,7 +24,7 @@ namespace CSharpAdvanceDesignTests
             }
         }
 
-        public static List<TSource> JoeyWhere<TSource>(this List<TSource> sources, Func<TSource, bool> validFunc)
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> sources, Func<TSource, bool> validFunc)
         {
             var result = new List<TSource>();
 
@@ -37,7 +37,7 @@ namespace CSharpAdvanceDesignTests
             return result;
         }
 
-        public static List<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> sources, Func<TSource, int, bool> prediGate)
+        public static IEnumerable<TSource> JoeyWhere<TSource>(this IEnumerable<TSource> sources, Func<TSource, int, bool> prediGate)
         {
             var index = 0;
             var result = new List<TSource>();
@@ -145,6 +145,40 @@ namespace CSharpAdvanceDesignTests
             }
 
             throw new InvalidOperationException($"{nameof(sources)} is Empty.");
+        }
+
+        public static TSource JoeyLast<TSource>(this IEnumerable<TSource> employees, Func<TSource, bool> predicate)
+        {
+            return employees.JoeyWhere(predicate).JoeyLast();
+        }
+
+        public static TSource JoeyLast<TSource>(this IEnumerable<TSource> sources)
+        {
+            var enumerator = sources.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+            {
+                throw new InvalidOperationException($"{nameof(sources)} is Not Found.");
+            }
+
+            var current = enumerator.Current;
+
+            while (enumerator.MoveNext())
+            {
+                current = enumerator.Current;
+            }
+
+            return current;
+
+            //這種方法當出現型別內容就是 null 的時候，會出現問題
+            //因為我們現在就是要取得 "最後" 一個
+            //Employee current = null;
+            //while (enumerator.MoveNext())
+            //{
+            //    current = enumerator.Current;
+            //}
+
+            //return current ?? throw new InvalidOperationException($"{nameof(sources)} is Empty.");
         }
     }
 }
