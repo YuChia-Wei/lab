@@ -41,7 +41,7 @@ namespace CSharpAdvanceDesignTests
             Assert.IsTrue(actual);
         }
 
-        private bool JoeyAnyWithCondition(IEnumerable<int> numbers, Func<int, bool> predicate)
+        private bool JoeyAnyWithCondition<TSource>(IEnumerable<TSource> numbers, Func<TSource, bool> predicate)
         {
             var enumerator = numbers.GetEnumerator();
             while (enumerator.MoveNext())
