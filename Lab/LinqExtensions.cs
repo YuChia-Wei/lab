@@ -147,7 +147,7 @@ namespace CSharpAdvanceDesignTests
             throw new InvalidOperationException($"{nameof(sources)} is Empty.");
         }
 
-        public static TSource JoeyLast<TSource>(IEnumerable<TSource> employees, Func<TSource, bool> predicate)
+        public static TSource JoeyLast<TSource>(this IEnumerable<TSource> employees, Func<TSource, bool> predicate)
         {
             return employees.JoeyWhere(predicate).JoeyLast();
         }

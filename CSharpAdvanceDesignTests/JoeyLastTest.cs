@@ -48,7 +48,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Cash", LastName = "Li"},
             };
 
-            var employee = LinqExtensions.JoeyLast(employees, e => e.LastName.Equals("Chen"));
+            var employee = employees.JoeyLast(e => e.LastName.Equals("Chen"));
 
             new Employee { FirstName = "David", LastName = "Chen" }
                 .ToExpectedObject().ShouldMatch(employee);
