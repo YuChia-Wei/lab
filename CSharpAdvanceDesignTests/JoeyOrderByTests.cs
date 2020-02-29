@@ -23,9 +23,10 @@ namespace CSharpAdvanceDesignTests
             return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
         }
 
-        public int SecondCompareResult(Employee employee, Employee minElement)
+        public int SecondCompareResult(Employee x, Employee y)
         {
-            return FirstKeyComparer.Compare(FirstKeySelector(employee), FirstKeySelector(minElement));
+            return Compare(x, y);
+            //return FirstKeyComparer.Compare(FirstKeySelector(x), FirstKeySelector(y));
         }
     }
 
