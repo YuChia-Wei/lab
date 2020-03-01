@@ -1,6 +1,7 @@
 ﻿using ExpectedObjects;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Data;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -21,7 +22,16 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<int> JoeyUnion(IEnumerable<int> first, IEnumerable<int> second)
         {
-            throw new System.NotImplementedException();
+            var sortedSet = new SortedSet<int>(first);
+
+            var enumerator = second.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                sortedSet.Add(enumerator.Current);
+            }
+
+            return sortedSet;
         }
     }
 }
