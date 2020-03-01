@@ -17,7 +17,7 @@ namespace CSharpAdvanceDesignTests
             _combineKeyComparer = combineKeyComparer;
         }
 
-        public static IEnumerable<Employee> JoeySort(IEnumerable<Employee> employees,
+        public static IEnumerator<Employee> JoeySort(IEnumerable<Employee> employees,
             IComparer<Employee> comboComparer)
         {
             //Selection sort
@@ -67,7 +67,7 @@ namespace CSharpAdvanceDesignTests
 
         public IEnumerator<Employee> GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return JoeySort(_employees, _combineKeyComparer);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
