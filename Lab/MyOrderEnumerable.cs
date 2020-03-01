@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Lab.Entities;
 
 namespace CSharpAdvanceDesignTests
 {
-    public static class MyOrderEnumerable
+    public class MyOrderEnumerable : IEnumerable<Employee>
     {
-        public static IEnumerable<Employee> JoeySort(this IEnumerable<Employee> employees,
+        public static IEnumerable<Employee> JoeySort(IEnumerable<Employee> employees,
             IComparer<Employee> comboComparer)
         {
             //Selection sort
@@ -31,7 +32,7 @@ namespace CSharpAdvanceDesignTests
             }
         }
 
-        public static IEnumerable<Employee> JoeySort(this IEnumerable<Employee> employees)
+        public static IEnumerable<Employee> JoeySort(IEnumerable<Employee> employees)
         {
             //Selection sort
             var stringComparer = Comparer<string>.Default;
@@ -52,6 +53,16 @@ namespace CSharpAdvanceDesignTests
                 elements.RemoveAt(index);
                 yield return minElement;
             }
+        }
+
+        public IEnumerator<Employee> GetEnumerator()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
