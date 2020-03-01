@@ -45,12 +45,26 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyDistinct(IEnumerable<Employee> employees)
         {
-            throw new System.NotImplementedException();
+            return new HashSet<Employee>(employees, new FullNameEqualityComparer());
         }
 
         private IEnumerable<int> Distinct(IEnumerable<int> numbers)
         {
             return new HashSet<int>(numbers);
+        }
+    }
+
+    internal class FullNameEqualityComparer : IEqualityComparer<Employee>
+    {
+        public bool Equals(Employee x, Employee y)
+        {
+            return x.FirstName.Equals(y?.FirstName) &&
+                   x.LastName.Equals(y?.LastName);
+        }
+
+        public int GetHashCode(Employee obj)
+        {
+            return (obj.FirstName + obj.LastName).GetHashCode();
         }
     }
 }
