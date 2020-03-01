@@ -64,7 +64,7 @@ namespace CSharpAdvanceDesignTests
 
         public int GetHashCode(Employee obj)
         {
-            return (obj.FirstName + obj.LastName).GetHashCode();
+            return new {obj.FirstName , obj.LastName}.GetHashCode();
         }
     }
 }
