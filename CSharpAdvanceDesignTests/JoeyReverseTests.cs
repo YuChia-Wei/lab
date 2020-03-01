@@ -2,6 +2,7 @@
 using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -32,7 +33,8 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<Employee> JoeyReverse(IEnumerable<Employee> employees)
         {
-            throw new System.NotImplementedException();
+            //Stack 本身就是後進先出，這邊直接使用即可
+            return new Stack<Employee>(employees);
         }
     }
 }
