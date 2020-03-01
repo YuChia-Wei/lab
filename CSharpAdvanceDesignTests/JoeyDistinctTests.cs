@@ -21,7 +21,21 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<int> Distinct(IEnumerable<int> numbers)
         {
-            throw new System.NotImplementedException();
+            var enumerator = numbers.GetEnumerator();
+
+            var result = new List<int>();
+
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+
+                if (!result.Contains(current))
+                {
+                    result.Add(current);
+                }
+            }
+
+            return result;
         }
     }
 }
