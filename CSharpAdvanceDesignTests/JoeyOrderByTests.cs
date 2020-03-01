@@ -45,7 +45,7 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joey", LastName = "Chen"},
             };
 
-            var actual = JoeyOrderByLastNameAndFirstName(employees, new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee1 => employee1.FirstName, Comparer<string>.Default)));
+            var actual = JoeySort(employees, new ComboComparer(new CombineKeyComparer<string>(employee => employee.LastName, Comparer<string>.Default), new CombineKeyComparer<string>(employee1 => employee1.FirstName, Comparer<string>.Default)));
 
             var expected = new[]
             {
@@ -58,7 +58,7 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeyOrderByLastNameAndFirstName(
+        private IEnumerable<Employee> JoeySort(
             IEnumerable<Employee> employees,
             IComparer<Employee> comboComparer)
         {
