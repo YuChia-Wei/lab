@@ -73,5 +73,10 @@ namespace CSharpAdvanceDesignTests
         {
             return GetEnumerator();
         }
+
+        public IEnumerable<Employee> Append(IComparer<Employee> comparer)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

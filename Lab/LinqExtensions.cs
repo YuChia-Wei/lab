@@ -189,10 +189,11 @@ namespace CSharpAdvanceDesignTests
             return new MyOrderEnumerable(employees,combineKeyComparer);
         }
 
-        public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees,
+        public static IEnumerable<Employee> JoeyThenBy<TKey>(this MyOrderEnumerable employees,
             Func<Employee, TKey> keySelector)
         {
-            return employees;
+            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            return employees.Append(combineKeyComparer);
         }
     }
 }
