@@ -21,16 +21,43 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<int> JoeyUnion(IEnumerable<int> first, IEnumerable<int> second)
         {
-            var sortedSet = new SortedSet<int>(first);
+            var set = new HashSet<int>();
 
-            var enumerator = second.GetEnumerator();
+            var firstEnumerator = first.GetEnumerator();
 
-            while (enumerator.MoveNext())
+            while (firstEnumerator.MoveNext())
             {
-                sortedSet.Add(enumerator.Current);
+                var current = firstEnumerator.Current;
+
+                if (set.Add(current))
+                {
+                    yield return current;
+                }
             }
 
-            return sortedSet;
+            var secondEnumerator = second.GetEnumerator();
+
+            while (secondEnumerator.MoveNext())
+            {
+                var current = secondEnumerator.Current;
+
+                if (set.Add(current))
+                {
+                    yield return current;
+                }
+            }
+
+            // 以下做法沒有延遲執行效果
+            //var sortedSet = new SortedSet<int>(first);
+
+            //var enumerator = second.GetEnumerator();
+
+            //while (enumerator.MoveNext())
+            //{
+            //    sortedSet.Add(enumerator.Current);
+            //}
+
+            //return sortedSet;
         }
     }
 }
