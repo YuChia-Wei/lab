@@ -6,7 +6,12 @@ using Lab.Entities;
 
 namespace CSharpAdvanceDesignTests
 {
-    public class MyOrderEnumerable : IEnumerable<Employee>
+    public interface IMyOrderEnumerable : IEnumerable<Employee>
+    {
+        IMyOrderEnumerable Append(IComparer<Employee> comparer);
+    }
+
+    public class MyOrderEnumerable : IMyOrderEnumerable
     {
         private readonly IEnumerable<Employee> _employees;
         private IComparer<Employee> _combineKeyComparer;
@@ -75,7 +80,7 @@ namespace CSharpAdvanceDesignTests
             return GetEnumerator();
         }
 
-        public MyOrderEnumerable Append(IComparer<Employee> comparer)
+        public IMyOrderEnumerable Append(IComparer<Employee> comparer)
         {
             _combineKeyComparer = new ComboComparer(_combineKeyComparer, comparer);
             return this;

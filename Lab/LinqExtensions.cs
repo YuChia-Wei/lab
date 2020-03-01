@@ -182,14 +182,14 @@ namespace CSharpAdvanceDesignTests
             //return current ?? throw new InvalidOperationException($"{nameof(sources)} is Empty.");
         }
 
-        public static MyOrderEnumerable JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
+        public static IMyOrderEnumerable JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
             Func<Employee, TKey> keySelector)
         {
             IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector,Comparer<TKey>.Default);
             return new MyOrderEnumerable(employees,combineKeyComparer);
         }
 
-        public static MyOrderEnumerable JoeyThenBy<TKey>(this MyOrderEnumerable employees,
+        public static IMyOrderEnumerable JoeyThenBy<TKey>(this IMyOrderEnumerable employees,
             Func<Employee, TKey> keySelector)
         {
             IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
