@@ -11,8 +11,8 @@ namespace Lab
             SecondCombineKeyComparer = secondCombineKeyComparer;
         }
 
-        public IComparer<Employee> FirstCombineKeyComparer { get; private set; }
-        public IComparer<Employee> SecondCombineKeyComparer { get; private set; }
+        private IComparer<Employee> FirstCombineKeyComparer { get; set; }
+        private IComparer<Employee> SecondCombineKeyComparer { get; set; }
 
         public int Compare(Employee x, Employee y)
         {
