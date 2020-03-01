@@ -4,7 +4,6 @@ using NUnit.Framework;
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeySequenceEqualTests
     {
         [Test]
@@ -30,9 +29,20 @@ namespace CSharpAdvanceDesignTests
         }
 
         [Test]
-        public void compare_two_numbers_equal_member_empty()
+        public void compare_two_numbers_equal_member_2_empty()
         {
             var first = new List<int> { };
+            var second = new List<int> { };
+
+            var actual = JoeySequenceEqual(first, second);
+
+            Assert.IsTrue(actual);
+        }
+
+        [Test]
+        public void compare_two_numbers_equal_member_1_empty()
+        {
+            var first = new List<int> { 1 };
             var second = new List<int> { };
 
             var actual = JoeySequenceEqual(first, second);
