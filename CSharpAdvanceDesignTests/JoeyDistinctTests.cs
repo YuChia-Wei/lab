@@ -1,7 +1,7 @@
-﻿using ExpectedObjects;
+﻿using System.Collections.Generic;
+using ExpectedObjects;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -23,16 +23,11 @@ namespace CSharpAdvanceDesignTests
         {
             var enumerator = numbers.GetEnumerator();
 
-            var result = new List<int>();
+            var result = new HashSet<int>();
 
             while (enumerator.MoveNext())
             {
-                var current = enumerator.Current;
-
-                if (!result.Contains(current))
-                {
-                    result.Add(current);
-                }
+                result.Add(enumerator.Current);
             }
 
             return result;
