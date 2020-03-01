@@ -13,13 +13,13 @@ namespace CSharpAdvanceDesignTests
 
     public class MyOrderEnumerable : IMyOrderEnumerable
     {
-        private readonly IEnumerable<Employee> _employees;
-        private IComparer<Employee> _combineKeyComparer;
+        private readonly IEnumerable<Employee> _source;
+        private IComparer<Employee> _untilNowComparer;
 
-        public MyOrderEnumerable(IEnumerable<Employee> employees, IComparer<Employee> combineKeyComparer)
+        public MyOrderEnumerable(IEnumerable<Employee> source, IComparer<Employee> untilNowComparer)
         {
-            _employees = employees;
-            _combineKeyComparer = combineKeyComparer;
+            _source = source;
+            _untilNowComparer = untilNowComparer;
         }
 
         public static IEnumerator<Employee> JoeySort(IEnumerable<Employee> employees,
@@ -72,7 +72,7 @@ namespace CSharpAdvanceDesignTests
 
         public IEnumerator<Employee> GetEnumerator()
         {
-            return JoeySort(_employees, _combineKeyComparer);
+            return JoeySort(_source, _untilNowComparer);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -82,7 +82,7 @@ namespace CSharpAdvanceDesignTests
 
         public IMyOrderEnumerable Append(IComparer<Employee> comparer)
         {
-            _combineKeyComparer = new ComboComparer(_combineKeyComparer, comparer);
+            _untilNowComparer = new ComboComparer(_untilNowComparer, comparer);
             return this;
         }
     }

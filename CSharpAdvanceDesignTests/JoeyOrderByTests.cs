@@ -10,7 +10,7 @@ namespace CSharpAdvanceDesignTests
     public class JoeyOrderByTests
     {
         [Test]
-        public void orderBy_lastName()
+        public void orderBy_lastName_Use_JoeySort()
         {
             var employees = new[]
             {
@@ -34,7 +34,7 @@ namespace CSharpAdvanceDesignTests
         }
 
         [Test]
-        public void orderBy_lastName_and_FirstName()
+        public void orderBy_lastName_and_FirstName_Use_JoeySort()
         {
             var employees = new[]
             {
@@ -58,7 +58,7 @@ namespace CSharpAdvanceDesignTests
         }
 
         [Test]
-        public void orderBy_lastName_firstName_Age()
+        public void orderBy_lastName_firstName_Age_UseOrderThen()
         {
             var employees = new[]
             {
@@ -100,7 +100,7 @@ namespace CSharpAdvanceDesignTests
         }
 
         [Test]
-        public void orderBy_lastName_firstName_Age_UseSort()
+        public void orderBy_lastName_firstName_Age_Use_JoeySort()
         {
             var employees = new[]
             {
