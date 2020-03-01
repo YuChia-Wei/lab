@@ -25,7 +25,7 @@ namespace CSharpAdvanceDesignTests
 
             var actual = JoeySequenceEqual(first, second);
 
-            Assert.IsTrue(actual);
+            Assert.IsFalse(actual);
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace CSharpAdvanceDesignTests
 
             var actual = JoeySequenceEqual(first, second);
 
-            Assert.IsTrue(actual);
+            Assert.IsFalse(actual);
         }
 
         [Test]
@@ -68,7 +68,10 @@ namespace CSharpAdvanceDesignTests
 
             while (firstEnumerator.MoveNext() && secondEnumerator.MoveNext())
             {
-                if (!firstEnumerator.Current.Equals(secondEnumerator.Current))
+                var firstCurrent = firstEnumerator.Current;
+                var secondCurrent = secondEnumerator.Current;
+
+                if (!firstCurrent.Equals(secondCurrent))
                 {
                     return false;
                 }
