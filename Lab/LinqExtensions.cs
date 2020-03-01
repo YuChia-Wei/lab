@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Lab;
 using Lab.Entities;
 
 namespace CSharpAdvanceDesignTests
@@ -185,7 +185,8 @@ namespace CSharpAdvanceDesignTests
         public static IEnumerable<Employee> JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
             Func<Employee, TKey> keySelector)
         {
-            return employees;
+            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector,Comparer<TKey>.Default);
+            return new MyOrderEnumerable(employees,combineKeyComparer);
         }
 
         public static IEnumerable<Employee> JoeyThenBy<TKey>(this IEnumerable<Employee> employees,

@@ -7,6 +7,15 @@ namespace CSharpAdvanceDesignTests
 {
     public class MyOrderEnumerable : IEnumerable<Employee>
     {
+        private readonly IEnumerable<Employee> _employees;
+        private readonly IComparer<Employee> _combineKeyComparer;
+
+        public MyOrderEnumerable(IEnumerable<Employee> employees, IComparer<Employee> combineKeyComparer)
+        {
+            _employees = employees;
+            _combineKeyComparer = combineKeyComparer;
+        }
+
         public static IEnumerable<Employee> JoeySort(IEnumerable<Employee> employees,
             IComparer<Employee> comboComparer)
         {
