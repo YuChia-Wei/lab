@@ -5,19 +5,19 @@ namespace Lab
 {
     public class ComboComparer : IComparer<Employee>
     {
-        public ComboComparer(IComparer<Employee> firstCombineKeyComparer, IComparer<Employee> secondCombineKeyComparer)
+        public ComboComparer(IComparer<Employee> firstComparer, IComparer<Employee> secondComparer)
         {
-            FirstCombineKeyComparer = firstCombineKeyComparer;
-            SecondCombineKeyComparer = secondCombineKeyComparer;
+            FirstComparer = firstComparer;
+            SecondComparer = secondComparer;
         }
 
-        private IComparer<Employee> FirstCombineKeyComparer { get; set; }
-        private IComparer<Employee> SecondCombineKeyComparer { get; set; }
+        private IComparer<Employee> FirstComparer { get; set; }
+        private IComparer<Employee> SecondComparer { get; set; }
 
         public int Compare(Employee x, Employee y)
         {
-            var firstCompareResult = FirstCombineKeyComparer.Compare(x, y);
-            var secondCompareResult = SecondCombineKeyComparer.Compare(x, y);
+            var firstCompareResult = FirstComparer.Compare(x, y);
+            var secondCompareResult = SecondComparer.Compare(x, y);
 
             if (firstCompareResult < 0)
             {
