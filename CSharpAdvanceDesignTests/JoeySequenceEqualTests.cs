@@ -1,6 +1,5 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -19,9 +18,53 @@ namespace CSharpAdvanceDesignTests
             Assert.IsTrue(actual);
         }
 
+        [Test]
+        public void compare_two_numbers_context_not_equal()
+        {
+            var first = new List<int> { 3, 2, 1 };
+            var second = new List<int> { 3, 1, 2 };
+
+            var actual = JoeySequenceEqual(first, second);
+
+            Assert.IsTrue(actual);
+        }
+
+        [Test]
+        public void compare_two_numbers_equal_member_empty()
+        {
+            var first = new List<int> { };
+            var second = new List<int> { };
+
+            var actual = JoeySequenceEqual(first, second);
+
+            Assert.IsTrue(actual);
+        }
+
+        [Test]
+        public void compare_two_numbers_count_not_equal()
+        {
+            var first = new List<int> { 3, 2, 1 };
+            var second = new List<int> { 3, 1 };
+
+            var actual = JoeySequenceEqual(first, second);
+
+            Assert.IsFalse(actual);
+        }
+
         private bool JoeySequenceEqual(IEnumerable<int> first, IEnumerable<int> second)
         {
-            throw new NotImplementedException();
+            var firstEnumerator = first.GetEnumerator();
+            var secondEnumerator = second.GetEnumerator();
+
+            while (firstEnumerator.MoveNext() && secondEnumerator.MoveNext())
+            {
+                if (!firstEnumerator.Current.Equals(secondEnumerator.Current))
+                {
+                    return false;
+                }
+            }
+
+            return firstEnumerator.Current.Equals(secondEnumerator.Current);
         }
     }
 }
