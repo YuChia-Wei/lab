@@ -19,17 +19,12 @@ namespace Lab
             var firstCompareResult = FirstCombineKeyComparer.Compare(x, y);
             var secondCompareResult = SecondCombineKeyComparer.Compare(x, y);
 
-            var finalCompareResult = firstCompareResult;
-
             if (firstCompareResult < 0)
             {
-            }
-            else if (firstCompareResult == 0)
-            {
-                finalCompareResult = secondCompareResult;
+                return firstCompareResult;
             }
 
-            return finalCompareResult;
+            return firstCompareResult == 0 ? secondCompareResult : firstCompareResult;
         }
     }
 }
