@@ -1,12 +1,12 @@
-﻿using ExpectedObjects;
+﻿using System.Collections.Generic;
+using ExpectedObjects;
+using Lab.Entities;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using System.Collections.Generic;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyDistinctTests
     {
         [Test]
@@ -20,9 +20,51 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
+        [Test]
+        public void distinct_employees()
+        {
+            var employees = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "Joseph", LastName = "Chen"},
+                new Employee {FirstName = "Tom", LastName = "Li"},
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+            };
+
+            var actual = JoeyDistinct(employees);
+
+            var expected = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen"},
+                new Employee {FirstName = "Joseph", LastName = "Chen"},
+                new Employee {FirstName = "Tom", LastName = "Li"},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
+        private IEnumerable<Employee> JoeyDistinct(IEnumerable<Employee> employees)
+        {
+            return new HashSet<Employee>(employees, new FullNameEqualityComparer());
+        }
+
         private IEnumerable<int> Distinct(IEnumerable<int> numbers)
         {
-            throw new System.NotImplementedException();
+            return new HashSet<int>(numbers);
+        }
+    }
+
+    internal class FullNameEqualityComparer : IEqualityComparer<Employee>
+    {
+        public bool Equals(Employee x, Employee y)
+        {
+            return x.FirstName.Equals(y?.FirstName) &&
+                   x.LastName.Equals(y?.LastName);
+        }
+
+        public int GetHashCode(Employee obj)
+        {
+            return new {obj.FirstName , obj.LastName}.GetHashCode();
         }
     }
 }
