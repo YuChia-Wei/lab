@@ -58,6 +58,38 @@ namespace CSharpAdvanceDesignTests
             expected.ToExpectedObject().ShouldMatch(actual);
         }
 
+        [Test]
+        public void orderBy_lastName_firstName_Age()
+        {
+            var employees = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
+                new Employee {FirstName = "Tom", LastName = "Li", Age = 31},
+                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 32},
+                new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
+            };
+
+            var comboComparer = new ComboComparer(
+                new ComboComparer(
+                    new CombineKeyComparer<string>(element => element.LastName, Comparer<string>.Default)
+                    , new CombineKeyComparer<string>(element => element.FirstName, Comparer<string>.Default))
+                , new CombineKeyComparer<int>(employee => employee.Age, Comparer<int>.Default));
+
+            var actual = employees.JoeySort(comboComparer);
+
+            var expected = new[]
+            {
+                new Employee {FirstName = "Joey", LastName = "Chen", Age = 33},
+                new Employee {FirstName = "Joseph", LastName = "Chen", Age = 32},
+                new Employee {FirstName = "Tom", LastName = "Li", Age = 31},
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 20},
+                new Employee {FirstName = "Joey", LastName = "Wang", Age = 50},
+            };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
+        }
+
         private IEnumerable<Employee> JoeyOrderByLastName(IEnumerable<Employee> employees)
         {
             //Selection sort
