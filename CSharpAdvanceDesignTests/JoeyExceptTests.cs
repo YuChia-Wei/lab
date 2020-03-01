@@ -21,14 +21,14 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<int> JoeyExcept(IEnumerable<int> first, IEnumerable<int> second)
         {
-            var hashSet = new HashSet<int>(second);
+            var secondHashSet = new HashSet<int>(second);
 
             var enumerator = first.GetEnumerator();
 
             while (enumerator.MoveNext())
             {
                 var current = enumerator.Current;
-                if (hashSet.Add(current))
+                if (secondHashSet.Add(current))
                 {
                     yield return current;
                 }
