@@ -66,8 +66,19 @@ namespace CSharpAdvanceDesignTests
             var firstEnumerator = first.GetEnumerator();
             var secondEnumerator = second.GetEnumerator();
 
-            while (firstEnumerator.MoveNext() && secondEnumerator.MoveNext())
+            while (true)
             {
+                var hasFirst = firstEnumerator.MoveNext();
+                var hasSecond = secondEnumerator.MoveNext();
+
+                if (hasFirst != hasSecond)
+                {
+                    return false;
+                }
+
+                if (!hasFirst && !hasSecond)
+                    break;
+
                 var firstCurrent = firstEnumerator.Current;
                 var secondCurrent = secondEnumerator.Current;
 
