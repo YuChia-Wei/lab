@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lab;
 using Lab.Entities;
 
 namespace CSharpAdvanceDesignTests
@@ -14,7 +15,7 @@ namespace CSharpAdvanceDesignTests
             }
         }
 
-        public static IEnumerable<TResult> JoeySelect<TSource,TResult>(this IEnumerable<TSource> sources, Func<TSource, int, TResult> joeySelectWithIndex)
+        public static IEnumerable<TResult> JoeySelect<TSource, TResult>(this IEnumerable<TSource> sources, Func<TSource, int, TResult> joeySelectWithIndex)
         {
             var index = 0;
             foreach (var source in sources)
@@ -179,6 +180,20 @@ namespace CSharpAdvanceDesignTests
             //}
 
             //return current ?? throw new InvalidOperationException($"{nameof(sources)} is Empty.");
+        }
+
+        public static IMyOrderEnumerable JoeyOrderBy<TKey>(this IEnumerable<Employee> employees,
+            Func<Employee, TKey> keySelector)
+        {
+            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector,Comparer<TKey>.Default);
+            return new MyOrderEnumerable(employees,combineKeyComparer);
+        }
+
+        public static IMyOrderEnumerable JoeyThenBy<TKey>(this IMyOrderEnumerable employees,
+            Func<Employee, TKey> keySelector)
+        {
+            IComparer<Employee> combineKeyComparer = new CombineKeyComparer<TKey>(keySelector, Comparer<TKey>.Default);
+            return employees.Append(combineKeyComparer);
         }
     }
 }
