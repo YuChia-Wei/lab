@@ -1,7 +1,6 @@
-﻿using ExpectedObjects;
+﻿using System.Collections.Generic;
+using ExpectedObjects;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Data;
 
 namespace CSharpAdvanceDesignTests
 {
@@ -11,8 +10,8 @@ namespace CSharpAdvanceDesignTests
         [Test]
         public void union_numbers()
         {
-            var first = new[] { 1, 3, 5 };
-            var second = new[] { 5, 3, 7 };
+            var first = new[] { 1, 3, 5, 3 };
+            var second = new[] { 5, 3, 7, 7 };
 
             var actual = JoeyUnion(first, second);
             var expected = new[] { 1, 3, 5, 7 };
