@@ -21,7 +21,18 @@ namespace CSharpAdvanceDesignTests
 
         private IEnumerable<int> JoeyExcept(IEnumerable<int> first, IEnumerable<int> second)
         {
-            throw new System.NotImplementedException();
+            var hashSet = new HashSet<int>(second);
+
+            var enumerator = first.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (hashSet.Add(current))
+                {
+                    yield return current;
+                }
+            }
         }
     }
 }
